@@ -1,0 +1,5 @@
+export const API_ROOT = 'https://5b939d42bd13d3001426964a.mockapi.io/api/v1/';
+
+export const GET_ENTITIES_REQUEST = 'GET_ENTITIES_REQUEST';
+export const GET_ENTITIES_SUCCESS = 'GET_ENTITIES_SUCCESS';
+export const GET_ENTITIES_FAIL = 'GET_ENTITIES_FAIL';
