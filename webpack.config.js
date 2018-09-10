@@ -14,10 +14,14 @@ module.exports = {
         exclude: /node_modules/,
         use: ['babel-loader', 'eslint-loader'],
       },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader',
+      },
     ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['*', '.js', '.jsx', '.css'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
