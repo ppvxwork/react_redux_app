@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'antd';
+import { Table, Button } from 'antd';
+import { Link } from 'react-router-dom';
+import Page1 from '../containers/Page1';
+
 
 const columns = [{
   title: 'Id',
   dataIndex: 'id',
   key: 'id',
-  render: text => <a href='#'>{text}</a>,
+  render: text => <Link to={'/page-2'}>{text}</Link>,
 }, {
   title: 'Name',
   dataIndex: 'name',
@@ -23,10 +26,15 @@ const columns = [{
   title: 'Addresses',
   key: 'addresses',
   dataIndex: 'addresses',
+}, {
+  title: 'Action',
+  key: 'action',
+  dataIndex: '',
+  render: () => <Button>Кнопка</Button>,
 }];
 
 
-class EntityList extends React.Component {
+class EntityList extends Component {
   renderTemplate = () => {
     const { entities, isLoading, isFailed } = this.props;
 
@@ -38,7 +46,7 @@ class EntityList extends React.Component {
       return <p>Загрузка...</p>;
     }
 
-    return <Table dataSource={entities} columns={columns} />;
+    return <Table dataSource={entities} columns={columns} rowKey='id'/>;
   };
 
   render() {

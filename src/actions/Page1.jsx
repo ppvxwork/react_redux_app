@@ -1,9 +1,9 @@
-import { GET_ENTITIES_FAIL, GET_ENTITIES_REQUEST, GET_ENTITIES_SUCCESS, } from '../utils/index';
+import { GET_ENTITIES_FAIL, GET_ENTITIES_REQUEST, GET_ENTITIES_SUCCESS } from '../utils/index';
 
 export function fail(bool) {
   return {
     type: GET_ENTITIES_FAIL,
-    hasErrored: bool,
+    isFailed: bool,
   };
 }
 
@@ -35,8 +35,8 @@ export function fetchData(url) {
 
         return response;
       })
-      .then((response) => response.json())
-      .then((entities) => dispatch(success(entities)))
+      .then(response => response.json())
+      .then(entities => dispatch(success(entities)))
       .catch(() => dispatch(fail(true)));
   };
 }

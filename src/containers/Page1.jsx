@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchData } from '../actions/Page1Action';
+import { fetchData } from '../actions/Page1';
 import EntityList from '../components/EntityList';
 
 class Page1 extends Component {

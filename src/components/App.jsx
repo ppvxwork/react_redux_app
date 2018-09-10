@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import Page1Container from '../containers/Page1';
+import Main from './Main';
+import Footer from './Footer';
+import Header from './Header';
 
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <Page1Container />
-      </div>
+      <React.Fragment>
+        <Header />
+        <Main />
+        <Footer />
+      </React.Fragment>
     );
   }
 }
-
-App.propTypes = {};
 
 export default App;

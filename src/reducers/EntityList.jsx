@@ -4,7 +4,7 @@ import { GET_ENTITIES_FAIL, GET_ENTITIES_REQUEST, GET_ENTITIES_SUCCESS, } from '
 export function entityListFail(state = false, action) {
   switch (action.type) {
     case GET_ENTITIES_FAIL:
-      return action.hasErrored;
+      return action.isFailed;
 
     default:
       return state;
