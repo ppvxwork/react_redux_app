@@ -1,27 +1,27 @@
-import { GET_ENTITIES_FAIL, GET_ENTITIES_REQUEST, GET_ENTITIES_SUCCESS } from '../utils/index';
+import { POSITION_FAIL, POSITION_SUCCESS, POSITION_REQUEST } from '../utils/index';
 
-export function fail(bool) {
+function fail(bool) {
   return {
-    type: GET_ENTITIES_FAIL,
+    type: POSITION_FAIL,
     isFailed: bool,
   };
 }
 
-export function request(bool) {
+function request(bool) {
   return {
-    type: GET_ENTITIES_REQUEST,
+    type: POSITION_REQUEST,
     isLoading: bool,
   };
 }
 
-export function success(entities) {
+function success(positions) {
   return {
-    type: GET_ENTITIES_SUCCESS,
-    entities,
+    type: POSITION_SUCCESS,
+    positions,
   };
 }
 
-export function fetchData(url) {
+export function getPositions(url) {
   return (dispatch) => {
     dispatch(request(true));
 
@@ -36,7 +36,7 @@ export function fetchData(url) {
         return response;
       })
       .then(response => response.json())
-      .then(entities => dispatch(success(entities)))
+      .then(positions => dispatch(success(positions)))
       .catch(() => dispatch(fail(true)));
   };
 }

@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux';
-import { entityListFail, entityListRequest, entityListSuccess } from './EntityList';
+import { employeeReducerFail, employeeReducerRequest, employeeReducerSuccess } from './EmployeeReducer';
+import { positionReducerFail, positionReducerRequest, positionReducerSuccess } from './PositionReducer';
 
 export default combineReducers({
-  entityListRequest,
-  entityListSuccess,
-  entityListFail,
+  employeeReducerRequest,
+  employeeReducerSuccess,
+  employeeReducerFail,
+  positionReducerRequest,
+  positionReducerSuccess,
+  positionReducerFail,
 });

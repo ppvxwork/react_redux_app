@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-import Page1 from '../containers/Page1';
+import { Route, Switch } from 'react-router-dom';
+import EmployeeListPageContainer from '../containers/EmployeeListPageContainer';
+import EmployeeEditPageContainer from '../containers/EmployeeEditPageContainer';
+import NotFoundPage from './NotFoundPage';
 
 class Main extends Component {
   render() {
     return (
-      <div>
-        <Route exact path='/page-1' component={Page1} />
-      </div>
+      <Switch>
+        <Route exact path='/' component={EmployeeListPageContainer}/>
+        <Route exact path='/employees' component={EmployeeListPageContainer}/>
+        <Route exact path='/employees/edit' component={EmployeeEditPageContainer}/>
+        <Route component={NotFoundPage}/>
+      </Switch>
     );
   }
 }

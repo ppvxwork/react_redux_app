@@ -9,7 +9,10 @@ class Header extends Component {
         <p>HEADER!</p>
         <ul>
           <li>
-            <Link to={'/page-1'}>Страница 1</Link>
+            <Link to={'/employees'}>Страница 1</Link>
+          </li>
+          <li>
+            <Link to={'/employees/edit'}>Страница 2</Link>
           </li>
         </ul>
 

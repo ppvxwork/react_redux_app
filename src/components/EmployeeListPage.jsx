@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button } from 'antd';
+import { Button, Table } from 'antd';
 import { Link } from 'react-router-dom';
-import Page1 from '../containers/Page1';
-
 
 const columns = [{
   title: 'Id',
@@ -30,38 +28,38 @@ const columns = [{
   title: 'Action',
   key: 'action',
   dataIndex: '',
-  render: () => <Button>Кнопка</Button>,
+  render: () => <Button>Редактировать</Button>,
 }];
 
 
-class EntityList extends Component {
+class EmployeeListPage extends Component {
   renderTemplate = () => {
-    const { entities, isLoading, isFailed } = this.props;
+    const { employees, employeesIsLoading, employeesIsFailed } = this.props;
 
-    if (isFailed) {
+    if (employeesIsFailed) {
       return <p>Во время загрузки сущностей произошла ошибка.</p>;
     }
 
-    if (isLoading) {
+    if (employeesIsLoading) {
       return <p>Загрузка...</p>;
     }
 
-    return <Table dataSource={entities} columns={columns} rowKey='id'/>;
+    return <Table dataSource={employees} columns={columns} rowKey='id'/>;
   };
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         {this.renderTemplate()}
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-export default EntityList;
+export default EmployeeListPage;
 
-EntityList.propTypes = {
-  entities: PropTypes.array.isRequired,
-  isFailed: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+EmployeeListPage.propTypes = {
+  employees: PropTypes.array.isRequired,
+  employeesIsFailed: PropTypes.bool.isRequired,
+  employeesIsLoading: PropTypes.bool.isRequired,
 };
