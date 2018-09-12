@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getEmployees, updateEmployees } from '../actions/EmployeeAction';
+import { getCheckedEmployeeIds, getEmployees, updateEmployees } from '../actions/EmployeeAction';
 import { getPositions } from '../actions/PositionAction';
 import EmployeeEditPage from '../components/EmployeeEditPage';
 
@@ -19,6 +19,8 @@ class EmployeeEditPageContainer extends Component {
       positionsIsLoading,
       positionsIsFailed,
       updateEmployeesAction,
+      checkedEmployeeIds,
+      checkedEmployeeIdsAction,
     } = this.props;
     return (
       <EmployeeEditPage
@@ -29,24 +31,31 @@ class EmployeeEditPageContainer extends Component {
         positionsIsLoading={positionsIsLoading}
         positionsIsFailed={positionsIsFailed}
         updateEmployeesAction={updateEmployeesAction}
+        checkedEmployeeIds={checkedEmployeeIds}
+        checkedEmployeeIdsAction={checkedEmployeeIdsAction}
       />
     );
   }
 }
 
-const mapStateToProps = store => ({
-  employees: store.employeeReducerSuccess,
-  employeesIsLoading: store.employeeReducerRequest,
-  employeesIsFailed: store.employeeReducerFail,
-  positions: store.positionReducerSuccess,
-  positionsIsLoading: store.positionReducerRequest,
-  positionsIsFailed: store.positionReducerFail,
-});
+const mapStateToProps = (store) => {
+  console.log(store);
+  return {
+    employees: store.employeeReducerSuccess,
+    employeesIsLoading: store.employeeReducerRequest,
+    employeesIsFailed: store.employeeReducerFail,
+    checkedEmployeeIds: store.employeeReducerCheckedIds,
+    positions: store.positionReducerSuccess,
+    positionsIsLoading: store.positionReducerRequest,
+    positionsIsFailed: store.positionReducerFail,
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
-  getEmployeesAction: url => dispatch(getEmployees(url)),
-  updateEmployeesAction: (url, employees) => dispatch(updateEmployees(url, employees)),
-  getPositionsAction: url => dispatch(getPositions(url)),
+  getEmployeesAction: () => dispatch(getEmployees()),
+  updateEmployeesAction: employees => dispatch(updateEmployees(employees)),
+  getPositionsAction: () => dispatch(getPositions()),
+  checkedEmployeeIdsAction: ids => dispatch(getCheckedEmployeeIds(ids)),
 });
 
 export default connect(

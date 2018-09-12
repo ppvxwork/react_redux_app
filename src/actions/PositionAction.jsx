@@ -1,4 +1,4 @@
-import { POSITION_FAIL, POSITION_SUCCESS, POSITION_REQUEST } from '../utils/index';
+import { POSITION_FAIL, POSITION_SUCCESS, POSITION_REQUEST, API_ROOT, API_ENDPOINT_POSITIONS } from '../utils/index';
 
 function fail(bool) {
   return {
@@ -21,11 +21,11 @@ function success(positions) {
   };
 }
 
-export function getPositions(url) {
+export function getPositions() {
   return (dispatch) => {
     dispatch(request(true));
 
-    fetch(url)
+    fetch(API_ROOT + API_ENDPOINT_POSITIONS)
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);

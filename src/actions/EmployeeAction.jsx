@@ -1,4 +1,11 @@
-import { EMPLOYEE_FAIL, EMPLOYEE_REQUEST, EMPLOYEE_SUCCESS } from '../utils/index';
+import {
+  API_ENDPOINT_EMPLOYEES,
+  API_ROOT,
+  EMPLOYEE_CHECKED_IDS,
+  EMPLOYEE_FAIL,
+  EMPLOYEE_REQUEST,
+  EMPLOYEE_SUCCESS,
+} from '../utils/index';
 
 function fail(bool) {
   return {
@@ -14,18 +21,25 @@ function request(bool) {
   };
 }
 
-function success(entities) {
+function success(employees) {
   return {
     type: EMPLOYEE_SUCCESS,
-    entities,
+    employees,
   };
 }
 
-export function getEmployees(url) {
+function checkedEmployeeIds(ids) {
+  return {
+    type: EMPLOYEE_CHECKED_IDS,
+    ids,
+  };
+}
+
+export function getEmployees() {
   return (dispatch) => {
     dispatch(request(true));
 
-    fetch(url)
+    fetch(API_ROOT + API_ENDPOINT_EMPLOYEES)
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -41,7 +55,7 @@ export function getEmployees(url) {
   };
 }
 
-export function updateEmployees(url, employees) {
+export function updateEmployees(employees) {
   return (dispatch) => {
     dispatch(request(true));
 
@@ -50,7 +64,7 @@ export function updateEmployees(url, employees) {
       body: JSON.stringify(employees),
     };
 
-    fetch(url, options)
+    fetch(API_ROOT + API_ENDPOINT_EMPLOYEES, options)
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -63,5 +77,12 @@ export function updateEmployees(url, employees) {
       .then(response => response.json())
       .then(employees => dispatch(success(employees)))
       .catch(() => dispatch(fail(true)));
+  };
+}
+
+export function getCheckedEmployeeIds(ids) {
+  return (dispatch) => {
+    console.log('Action', ids);
+    dispatch(checkedEmployeeIds(ids));
   };
 }

@@ -34,10 +34,10 @@ class EmployeeEditPage extends Component {
       positions,
       positionsIsLoading,
       positionsIsFailed,
+      checkedEmployeeIds,
+      checkedEmployeeIdsAction,
       updateEmployeesAction,
     } = this.props;
-
-    const checkedEmployees = ['Mrs. Kristopher Lang'];
 
     if (employeesIsFailed || positionsIsFailed) {
       return <p>Во время загрузки сущностей произошла ошибка.</p>;
@@ -47,11 +47,24 @@ class EmployeeEditPage extends Component {
       return <p>Загрузка...</p>;
     }
 
+    console.log('EmployeeEditPage props:', this.props);
+
+    const employeeIds = checkedEmployeeIds
+      .filter(id => id.indexOf('employee-') !== -1)
+      .map(id => id.replace('employee-', ''));
+    const newEmployees = employees
+      .filter(employee => employeeIds.indexOf(employee.id.toString()) !== -1);
+
     return (
       <React.Fragment>
-        <EmployeeTree positions = {positions} employees = {employees} checkedEmployees = {checkedEmployees}/>
+        <EmployeeTree
+          positions = {positions}
+          employees = {employees}
+          checkedEmployeeIds = {checkedEmployeeIds}
+          checkedEmployeeIdsAction={checkedEmployeeIdsAction}
+        />
         <hr/>
-        <Table dataSource={employees} columns={columns} rowKey='id'/>;
+        <Table dataSource={newEmployees} columns={columns} rowKey='id' />;
       </React.Fragment>
     );
   };
@@ -74,6 +87,8 @@ EmployeeEditPage.propTypes = {
   positionsIsLoading: PropTypes.bool.isRequired,
   positionsIsFailed: PropTypes.bool.isRequired,
   updateEmployeesAction: PropTypes.func.isRequired,
+  checkedEmployeeIds: PropTypes.array,
+  checkedEmployeeIdsAction: PropTypes.func,
 };
 
 export default EmployeeEditPage;

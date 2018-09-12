@@ -1,4 +1,6 @@
-import { EMPLOYEE_FAIL, EMPLOYEE_REQUEST, EMPLOYEE_SUCCESS } from '../utils/index';
+import {
+  EMPLOYEE_FAIL, EMPLOYEE_REQUEST, EMPLOYEE_SUCCESS, EMPLOYEE_CHECKED_IDS,
+} from '../utils/index';
 
 
 export function employeeReducerFail(state = false, action) {
@@ -24,7 +26,17 @@ export function employeeReducerRequest(state = false, action) {
 export function employeeReducerSuccess(state = [], action) {
   switch (action.type) {
     case EMPLOYEE_SUCCESS:
-      return action.entities;
+      return action.employees;
+
+    default:
+      return state;
+  }
+}
+
+export function employeeReducerCheckedIds(state = [], action) {
+  switch (action.type) {
+    case EMPLOYEE_CHECKED_IDS:
+      return action.ids;
 
     default:
       return state;

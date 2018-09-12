@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tree } from 'antd';
+import { getKey } from '../utils';
 
 class EmployeeTree extends Component {
-  onCheck = (checkedKeys, info) => {
-    console.log('onCheck', checkedKeys, info);
-  };
 
   renderTemplate = () => {
-    const { employees, positions, checkedEmployees } = this.props;
+    const {
+      employees, positions, checkedEmployeeIds, checkedEmployeeIdsAction,
+    } = this.props;
 
     const mainPositions = positions.filter(position => !position.category_id);
     return (
       <Tree
         checkable
-        defaultExpandedKeys={checkedEmployees}
-        defaultCheckedKeys={checkedEmployees}
-        onCheck={this.onCheck}
+        defaultExpandAll
+        defaultCheckedKeys={checkedEmployeeIds}
+        onCheck={checkedEmployeeIdsAction}
       >
         {this.renderTreeNodes(mainPositions, positions, employees)}
       </Tree>
@@ -25,13 +25,19 @@ class EmployeeTree extends Component {
 
   renderTreeNodes = (mainPositions, positions, employees) => {
     const treeNodes = mainPositions.map(mainPosition => (
-        <Tree.TreeNode title={mainPosition.name} key={mainPosition.id} selectable={false} >
-          {positions.filter(position => position.category_id === mainPosition.id).map(position => (
-              <Tree.TreeNode title={position.name} key={position.id} selectable={false} >
-                {employees.filter(employee => employee.category_id === position.id)
-                  .map(employee => <Tree.TreeNode title={employee.name} key={employee.name} selectable={false}/>)}
-              </Tree.TreeNode>
-          ))}
+        <Tree.TreeNode title={mainPosition.name} key={getKey(mainPosition.id, 'position-')} selectable={false} >
+          {
+            positions
+              .filter(position => position.category_id === mainPosition.id)
+              .map(position => (
+                <Tree.TreeNode title={position.name} key={getKey(position.id, 'position-')} selectable={false} >
+                  {
+                    employees.filter(employee => employee.category_id === position.id)
+                      .map(employee => <Tree.TreeNode title={employee.name} key={getKey(employee.id, 'employee-')} selectable={false}/>)
+                  }
+                </Tree.TreeNode>
+              ))
+          }
         </Tree.TreeNode>
     ));
 
@@ -50,7 +56,8 @@ class EmployeeTree extends Component {
 EmployeeTree.propTypes = {
   employees: PropTypes.array.isRequired,
   positions: PropTypes.array.isRequired,
-  checkedEmployees: PropTypes.array,
+  checkedEmployeeIds: PropTypes.array.isRequired,
+  checkedEmployeeIdsAction: PropTypes.func.isRequired,
 };
 
 export default EmployeeTree;
